@@ -81,3 +81,9 @@ default['mesos']['zookeeper_exhibitor_discovery']       = false
 
 # Netflix Exhibitor ZooKeeper ensemble url.
 default['mesos']['zookeeper_exhibitor_url']             = nil
+
+#
+# Marathon framework
+#
+default['mesos']['marathon']['install'] = false
+default['mesos']['marathon']['version'] = '1.4.5-1.0.654.ubuntu1604'

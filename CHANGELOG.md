@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.6.1] - 2017-08-04
+### Added
+- Marathon installation
+
 ## [3.6.0] - 2016-12-05
 ### Fixed
 - Mesos 1.0.0 and 1.0.1 require the --work_dir flag to be specified
