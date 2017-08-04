@@ -12,6 +12,13 @@ else
   end
 end
 
+directory '/etc/marathon/conf' do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  recursive true
+  action :create
+end
 
 template 'marathon-master' do
   path '/etc/marathon/conf/master'
@@ -32,7 +39,7 @@ template 'marathon-zk' do
   group 'root'
   mode '0644'
   variables(
-    :mesos_masters => node['mesos']['master']['flags']['zk'].gsub(/mesos$/, 'marathon')
+    :mesos_masters => node['mesos']['master']['flags']['zk'].gsub(/'mesos'$/, 'marathon')
   )
   notifies :restart, 'service[marathon]'
 end
