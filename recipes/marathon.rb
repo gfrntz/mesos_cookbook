@@ -4,7 +4,7 @@
 #
 
 
-case node['mesos']['marathon']['version'].nil?
+if node['mesos']['marathon']['version'].nil?
   package 'marathon'
 else
   package 'marathon' do
