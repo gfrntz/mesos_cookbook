@@ -31,6 +31,7 @@ Supported Mesos versions
 
 This cookbook is tested against the following Apache Mesos versions:
 
+* 1.3.0
 * 1.1.0
 * 1.0.1
 * 1.0.0
@@ -143,6 +144,54 @@ run_list:
   recipe[mesos::slave]
 ```
 
+Here is a role for creating a Mesos master node with Marathon and Chronos
+```JSON
+{
+  "name": "mesos-master",
+  "environment": "test_env",
+  "description": "Role for mesos master servers",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "mesos": {
+      "version": "1.3.0-2.0.3",
+      "master": {
+        "flags": {
+          "cluster": "exampleStageCluster",
+          "zk": "zk://mesos-master1-test.example.org:2181,mesos-master2-test.example.org:2181,mesos-master3-test.example.org:2181/mesos",
+          "quorum": "2",
+          "work_dir": "/var/lib/mesos"
+        }
+      },
+      "marathon": {
+        "install": "true",
+        "flags": {
+          "zk": "zk://mesos-master1-test.example.org:2181,mesos-master2-test.example.org:2181,mesos-master3-test.example.org:2181/marathon",
+          "master": "zk://mesos-master1-test.example.org:2181,mesos-master2-test.example.org:2181,mesos-master3-test.example.org:2181/mesos"
+        }
+      },
+      "chornos": {
+        "install": "true",
+        "flags": {
+          "http_port": "4400",
+          "zk_hosts": "zk://mesos-master1-test.example.org:2181,mesos-master2-test.example.org:2181,mesos-master3-test.example.org:2181",
+          "master": "zk://mesos-master1-test.example.org:2181,mesos-master2-test.example.org:2181,mesos-master3-test.example.org:2181/mesos"
+        }
+      }
+    }
+  },
+  "override_attributes": {
+
+  },
+  "chef_type": "role",
+  "run_list": [
+    "mesos::master"
+  ],
+  "env_run_lists": {
+
+  }
+}
+```
+
 Development
 -----------
 Please see the [Contributing](CONTRIBUTING.md) and [Issue Reporting](ISSUES.md) Guidelines.
@@ -154,15 +203,15 @@ License and Author
 
 Copyright 2015 Medidata Solutions Worldwide
 
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
-this file except in compliance with the License. You may obtain a copy of the 
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
 License at
 
     http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software distributed 
-under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
-CONDITIONS OF ANY KIND, either express or implied. See the License for the 
+Unless required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific language governing permissions and limitations under the License.
 
 [Apache Mesos]: http://mesos.apache.org
