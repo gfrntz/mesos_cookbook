@@ -32,7 +32,7 @@ template 'marathon-zk' do
   group 'root'
   mode '0644'
   variables(
-    :mesos_masters => node['mesos']['master']['flags']['zk'].sub 'mesos', 'marathon'
+    :mesos_masters => node['mesos']['master']['flags']['zk'].gsub(/mesos$/, 'marathon')
   )
   notifies :restart, 'service[marathon]'
 end
