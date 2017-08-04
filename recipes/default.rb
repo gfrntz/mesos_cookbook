@@ -19,7 +19,3 @@
 
 # install mesos package
 include_recipe 'mesos::install'
-
-if node['mesos']['marathon']['install']
-  include_recipe 'mesos::marathon'
-end

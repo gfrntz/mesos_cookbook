@@ -80,3 +80,7 @@ service 'mesos-master' do
   subscribes :restart, 'template[mesos-master-wrapper]'
   action [:enable, :start]
 end
+
+if node['mesos']['marathon']['install']
+  include_recipe 'mesos::marathon'
+end
