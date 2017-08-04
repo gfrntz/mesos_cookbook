@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: mesos
-# Recipe:: marathon-install
+# Recipe:: marathon
 #
 
 
