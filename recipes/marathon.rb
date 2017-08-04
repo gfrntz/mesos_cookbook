@@ -20,29 +20,20 @@ directory '/etc/marathon/conf' do
   action :create
 end
 
-template 'marathon-master' do
-  path '/etc/marathon/conf/master'
-  source 'marathon.master.erb'
-  owner 'root'
-  group 'root'
-  mode '0644'
-  variables(
-    :mesos_masters => node['mesos']['master']['flags']['zk']
-  )
-  notifies :restart, 'service[marathon]'
+node['mesos']['marathon']['flags'].each do |flag,value|
+  template "Generating #{flag} parameter" do
+    path "/etc/marathon/conf/#{flag}"
+    source 'flag.erb'
+    owner 'root'
+    group 'root'
+    mode '0644'
+    variables(
+      :value => value
+    )
+    notifies :restart, 'service[marathon]'
+  end
 end
 
-template 'marathon-zk' do
-  path '/etc/marathon/conf/zk'
-  source 'marathon.master.erb'
-  owner 'root'
-  group 'root'
-  mode '0644'
-  variables(
-    :mesos_masters => node['mesos']['master']['flags']['zk'].gsub(/'mesos'$/, 'marathon')
-  )
-  notifies :restart, 'service[marathon]'
-end
 
 service 'marathon' do
   action [ :enable, :start ]

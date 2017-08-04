@@ -84,3 +84,7 @@ end
 if node['mesos']['marathon']['install']
   include_recipe 'mesos::marathon'
 end
+
+if node['mesos']['chronos']['install']
+  include_recipe 'mesos::chronos'
+end

@@ -85,5 +85,17 @@ default['mesos']['zookeeper_exhibitor_url']             = nil
 #
 # Marathon framework
 #
-default['mesos']['marathon']['install'] = false
-default['mesos']['marathon']['version'] = '1.4.5-1.0.654.ubuntu1604'
+default['mesos']['marathon']['install']         = false
+default['mesos']['marathon']['version']         = '1.4.5-1.0.654.ubuntu1604'
+default['mesos']['marathon']['flags']['master'] = 'zk://localhost:2181/marathon'
+default['mesos']['marathon']['flags']['zk']     = 'zk://localhost:2181/mesos'
+
+
+#
+# Chronos framework
+#
+default['mesos']['chronos']['install']            = false
+default['mesos']['chronos']['version']            = '2.5.0-0.1.20170628182950.ubuntu1604'
+default['mesos']['chronos']['flags']['http_port'] = 4400
+default['mesos']['chronos']['flags']['zk_hosts']  = 'zk://localhost:2181'
+default['mesos']['chronos']['flags']['master']    = 'zk://localhost:2181/mesos'
