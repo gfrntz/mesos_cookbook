@@ -169,7 +169,7 @@ Here is a role for creating a Mesos master node with Marathon and Chronos
           "master": "zk://mesos-master1-test.example.org:2181,mesos-master2-test.example.org:2181,mesos-master3-test.example.org:2181/mesos"
         }
       },
-      "chornos": {
+      "chronos": {
         "install": "true",
         "flags": {
           "http_port": "4400",
